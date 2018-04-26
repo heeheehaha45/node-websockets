@@ -5,9 +5,12 @@
    </head>
    <script src = "/socket.io/socket.io.js"></script>
    
-  <script>
-    var socket = io();
-    socket.on('message', function(data){document.write(data)});
-    </script>
-   <body>Hello world</body>
+   <script>
+      var socket = io();
+      socket.on('connectToRoom',function(data) {
+         document.body.innerHTML = '';
+         document.write(data);
+      });
+   </script>
+   <body></body>
 </html>

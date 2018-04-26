@@ -6,19 +6,17 @@ app.get('/', function(req, res) {
    res.sendfile('index.html');
 });
 
+var roomno = 1;
 io.on('connection', function(socket) {
-   console.log('A user connected');
+   
+   //Increase roomno 2 clients are present in a room.
+   if(io.nsps['/'].adapter.rooms["room-"+roomno] && io.nsps['/'].adapter.rooms["room-"+roomno].length > 1) roomno++;
+   socket.join("room-"+roomno);
 
-   //Send a message after a timeout of 4seconds
-   setTimeout(function() {
-      socket.send('Sent a message 4seconds after connection!');
-   }, 1000);
-
-   socket.on('disconnect', function () {
-      console.log('A user disconnected');
-   });
-});
+   //Send this event to everyone in the room.
+   io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
+})
 
 http.listen(process.env.PORT || 3000, function() {
-   console.log('listening on *:3000');
+   console.log('listening on localhost:3000');
 });
