@@ -4,6 +4,8 @@ const express = require('express');
 const SocketServer = require('ws').Server;
 const path = require('path');
 
+var http = require('http').Server(app);
+
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 
