@@ -14,9 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "bufferutil": "1.2.1",
-    "express": "4.13.4",
+    "express": "^4.13.4",
+    "http": "",
+    "socket.io": "^2.1.0",
     "utf-8-validate": "1.2.1",
-    "ws": "1.1.0",
-    "http":""
+    "ws": "1.1.0"
   }
 }
