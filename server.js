@@ -6,16 +6,19 @@ app.get('/', function(req, res) {
    res.sendfile('index.html');
 });
 
-//Whenever someone connects this gets executed
 io.on('connection', function(socket) {
    console.log('A user connected');
 
-   //Whenever someone disconnects this piece of code executed
+   //Send a message after a timeout of 4seconds
+   setTimeout(function() {
+      socket.send('Sent a message 4seconds after connection!');
+   }, 1000);
+
    socket.on('disconnect', function () {
       console.log('A user disconnected');
    });
 });
 
 http.listen(process.env.PORT || 3000, function() {
-   console.log('listening on :'+(process.env.PORT || 3000));
+   console.log('listening on *:3000');
 });
