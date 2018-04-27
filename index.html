@@ -8,7 +8,8 @@
    <script>
       var socket = io();
       function setUsername() {
-         socket.emit('setUsername', document.getElementById('name').value);
+         var data={username:document.getElementById('name').value}; 
+         socket.emit('setUsername', data);
       };
       var user;
       socket.on('userExists', function(data) {
@@ -16,14 +17,16 @@
       });
       socket.on('userSet', function(data) {
          user = data.username;
-         document.body.innerHTML = '<input type = "text" id = "message">\
+         document.body.innerHTML = ' room:<input type = "text" id = "room_id">msg:<input type = "text" id = "message"><br>\
          <button type = "button" name = "button" onclick = "sendMessage()">Send</button>\
          <div id = "message-container"></div>';
       });
       function sendMessage() {
          var msg = document.getElementById('message').value;
+          var room_id = document.getElementById('room_id').value;
          if(msg) {
-            socket.emit('msg', {message: msg, user: user});
+           //  alert("hello");
+            socket.emit('msg', {message: msg, user: user,room_id:room_id});
          }
       }
       socket.on('newmsg', function(data) {
@@ -38,6 +41,8 @@
       <div id = "error-container"></div>
       <input id = "name" type = "text" name = "name" value = "" 
          placeholder = "Enter your name!">
+     
+         
       <button type = "button" name = "button" onclick = "setUsername()">
          Let me chat!
       </button>
